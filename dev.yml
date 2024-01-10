@@ -1,0 +1,9 @@
+version: '2.3'
+services:
+  web:
+    build: .
+    environment:
+      - NODE_ENV=demo
+      - NODE_URL=recipes.hwk.sh
+      - NODE_API_URL=https://recipes-api.hwk.sh
+      - NODE_LOCALE=en

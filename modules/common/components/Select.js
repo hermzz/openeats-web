@@ -1,7 +1,7 @@
 import React from 'react'
 import SelectReact from 'react-select'
-import { Async as AsyncReact} from 'react-select'
-import CreatableSelect from 'react-select/lib/Creatable';
+import AsyncSelect from 'react-select/async';
+import Creatable from 'react-select/creatable';
 import { BaseComponent } from './FormComponents'
 
 require('../css/select.scss');
@@ -45,7 +45,7 @@ export class RecipeGroupSelect extends BaseComponent {
       <div className={ this.props.class } key={ this.props.id }>
         <div className={ "form-group " + (this.hasErrors() ? 'has-error' : null) }>
           { this.props.label ? <label>{ this.props.label }</label> : null }
-            <CreatableSelect
+            <Creatable
               onChange={this.handleChange}
               isValidNewOption={this.isValidNewOption}
               onCreateOption={this.handleCreate}
@@ -78,7 +78,7 @@ export class Async extends BaseComponent {
       <div className={ this.props.class } key={ this.props.id }>
         <div className={ "form-group " + (this.hasErrors() ? 'has-error' : null) }>
           { this.props.label ? <label>{ this.props.label }</label> : null }
-          <AsyncReact
+          <AsyncSelect
             name={ this.props.name }
             value={ this.props.value }
             onChange={ this.handleChange }

@@ -217,7 +217,7 @@ module.exports = {
             use: [
               "style-loader",
               "css-loader",
-              "sass-loader"
+              //"sass-loader"
             ]
           },
           // "file" loader makes sure assets end up in the `build` folder.

@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { IntlProvider, addLocaleData } from 'react-intl'
-import { Router, Route, Switch, Redirect } from 'react-router-dom'
+import { IntlProvider } from 'react-intl'
+import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
 import history from './common/history'
 import store from './common/store'
 import registerServiceWorker from './registerServiceWorker';
@@ -26,48 +26,46 @@ import {
   loadPolyFills
 } from './common/polyfill'
 
+import "./base/css/core.scss";
+import "./base/css/print.scss";
+
 // Load default locale data;
-import en from 'react-intl/locale-data/en';
+/*import en from 'react-intl/locale-data/en';
 import es from 'react-intl/locale-data/es';
 import de from 'react-intl/locale-data/de';
 import fr from 'react-intl/locale-data/fr';
-addLocaleData([...en, ...es, ...de, ...fr]);
+addLocaleData([...en, ...es, ...de, ...fr]);*/
 const messages = require('./locale/'+process.env.NODE_LOCALE+'.json');
-
-// Load in the base CSS
-require("../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss");
-require("./base/css/core.scss");
-require("./base/css/print.scss");
 
 const main = (
   <IntlProvider locale={ process.env.NODE_LOCALE } messages={ messages }>
     <Provider store={ store }>
       <div>
         <div id="content">
-          <Router history={ history }>
+          <BrowserRouter history={ history }>
             <div>
               <Header />
               { process.env.NODE_ENV === 'demo' ? <Demo /> : '' }
-              <Switch>
-                <Route exact path='/' component={ News } />
-                <Route path='/news' component={ News } />
-                <Route path='/login' component={ Login } />
-                <Route path='/browse' component={ Browse } />
+              <Routes>
+                <Route exact path='/' element={<News />} />
+                <Route path='/news' element={<News />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/browse' element={<Browse />} />
 
-                <Route path='/recipe/create' component={ Form } />
-                <Route path='/recipe/edit/:recipe' component={ Form } />
-                <Route path='/recipe/:recipe' component={ RecipeView } />
+                <Route path='/recipe/create' element={<Form />} />
+                <Route path='/recipe/edit/:recipe' element={<Form />} />
+                <Route path='/recipe/:recipe' element={<RecipeView />} />
 
-                <Route path='/list/:list' component={ List } />
-                <Route path='/list' component={ List } />
+                <Route path='/list/:list' element={<List />} />
+                <Route path='/list' element={<List />} />
 
-                <Route path='/Menu' component={ Menu } />
+                <Route path='/Menu' element={<Menu />} />
 
-                <Route path='/NotFound' component={ NotFound } />
-                <Redirect path="*" to="/NotFound" />
-              </Switch>
+                <Route path='/NotFound' element={<NotFound />} />
+                <Route path="*" action={ redirect("/NotFound") } />
+              </Routes>
             </div>
-          </Router>
+          </BrowserRouter>
         </div>
         <Footer />
       </div>
